@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samyak Pusate — Portfolio | Data Analytics & Computer Technology</title>
+  <meta name="description" content="Portfolio of Samyak Pusate — B.Tech Computer Technology student at YCCE Nagpur, specializing in Data Analytics, SQL, Python, and Power BI.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings), Plus Jakarta Sans (Clean Body), JetBrains Mono (Tech) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       BACKGROUND SPACE: FINE CANVAS STARFIELD & REALISTIC PLANETS
+       ====================================================================== -->
+  <canvas id="space-canvas" aria-hidden="true"></canvas>
+
+  <div class="realistic-nebula nebula-top" aria-hidden="true"></div>
+  <div class="realistic-nebula nebula-mid" aria-hidden="true"></div>
+  <div class="realistic-nebula nebula-bottom" aria-hidden="true"></div>
+
+  <!-- Background Realistic Planets with directional lighting -->
+  <div class="space-background-planets" aria-hidden="true">
+    <div class="realistic-planet planet-earth" data-speed="0.12" title="Earth (Data & Science)"></div>
+    <div class="realistic-planet planet-saturn" data-speed="0.07" title="Saturn (Projects)"></div>
+    <div class="realistic-planet planet-violet" data-speed="0.09" title="Deep Space (Music & Arts)"></div>
+  </div>
+
+  <!-- ======================================================================
+       REALISTIC ASTRONAUT COMPANION (Travels as you scroll)
+       ====================================================================== -->
+  <div id="astronaut-vessel" title="Click astronaut to test thrusters!" role="button" tabindex="0">
+    <div class="astronaut-body">
+      <!-- High-detail Realistic Apollo/Artemis EVA Suit -->
+      <svg viewBox="0 0 90 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- PLSS Backpack -->
+        <rect x="23" y="32" width="44" height="52" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+        <rect x="28" y="36" width="15" height="42" rx="5" fill="#334155"/>
+        <rect x="47" y="36" width="15" height="42" rx="5" fill="#334155"/>
+
+        <!-- Life support tubes -->
+        <path d="M 23 48 Q 14 55 24 64" stroke="#64748b" stroke-width="2.5" fill="none"/>
+        <path d="M 67 48 Q 76 55 66 64" stroke="#64748b" stroke-width="2.5" fill="none"/>
+
+        <!-- Torso & Suit -->
+        <rect x="25" y="32" width="40" height="48" rx="12" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+        <!-- Chest pack -->
+        <rect x="33" y="42" width="24" height="15" rx="3" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+        <circle cx="38" cy="49" r="2" fill="#38bdf8"/>
+        <circle cx="45" cy="49" r="2" fill="#10b981"/>
+        <circle cx="52" cy="49" r="2" fill="#f59e0b"/>
+
+        <!-- Arms -->
+        <path d="M 25 36 Q 12 50 16 66 Q 20 64 22 54" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+        <circle cx="16" cy="67" r="4.5" fill="#334155"/>
+
+        <path d="M 65 36 Q 78 50 74 66 Q 70 64 68 54" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+        <circle cx="74" cy="67" r="4.5" fill="#334155"/>
+
+        <!-- Flexible Joint Ribs on Knees & Elbows -->
+        <line x1="28" y1="88" x2="42" y2="88" stroke="#64748b" stroke-width="1.5"/>
+        <line x1="48" y1="88" x2="62" y2="88" stroke="#64748b" stroke-width="1.5"/>
+
+        <!-- Legs & Heavy Boots -->
+        <rect x="28" y="78" width="14" height="28" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+        <rect x="26" y="103" width="18" height="11" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+        <rect x="48" y="78" width="14" height="28" rx="5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+        <rect x="46" y="103" width="18" height="11" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+        <!-- Helmet & Realistic Gold Solar Visor -->
+        <circle cx="45" cy="22" r="19" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+        <!-- Curved Visor -->
+        <ellipse cx="45" cy="22" rx="14" ry="11" fill="url(#gold-visor)"/>
+        <!-- Realistic reflection arc -->
+        <path d="M 37 16 Q 45 13 53 16 Q 48 18 39 19 Z" fill="#ffffff" opacity="0.65"/>
+
+        <defs>
+          <linearGradient id="gold-visor" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="40%" stop-color="#f59e0b"/>
+            <stop offset="85%" stop-color="#78350f"/>
+            <stop offset="100%" stop-color="#1e1b4b"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="thruster-glow"></div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       HEADER / NAVIGATION
+       ====================================================================== -->
+  <header class="cosmic-navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a href="#home" class="brand-logo">
+        <span>Samyak<span class="highlight">.</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#music" class="nav-link">Music</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="resume.pdf" download class="btn btn-primary btn-sm">Resume (PDF)</a>
+        <button class="mobile-menu-btn" id="mobile-btn" aria-label="Toggle navigation menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       MAIN CONTENT
+       ====================================================================== -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <span class="section-tag">
+              <span class="dot"></span>
+              Data Analytics · Engineering Student
+            </span>
+
+            <h1 class="hero-title">
+              Hi, I'm <span class="gradient-text">Samyak Pusate</span>.
+            </h1>
+
+            <p class="hero-subtitle">
+              Third-year <strong>Computer Technology</strong> student at YCCE Nagpur with a minor in <strong>Data Science</strong>. I analyze real-world datasets with Python, SQL, and Power BI to extract clear, actionable business insights.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#projects" class="btn btn-primary">
+                <span>View Projects</span>
+                <span>➔</span>
+              </a>
+              <a href="#contact" class="btn">
+                <span>Contact Me</span>
+              </a>
+              <a href="resume.pdf" download class="btn">
+                <span>Download Resume</span>
+                <span>📄</span>
+              </a>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="hero-stats-row">
+              <div class="hero-stat-box">
+                <span class="hero-stat-num">8.4</span>
+                <span class="hero-stat-label">CGPA (II Year)</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="hero-stat-num">100K+</span>
+                <span class="hero-stat-label">Rows Analyzed</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="hero-stat-num">8+ Yrs</span>
+                <span class="hero-stat-label">Piano Artistry</span>
+              </div>
+              <div class="hero-stat-box">
+                <span class="hero-stat-num">Runner-Up</span>
+                <span class="hero-stat-label">HackNexus '25</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Photo Card -->
+          <div class="hero-photo-wrapper">
+            <div class="profile-card">
+              <img src="assets/profile.jpg" alt="Samyak Pusate" class="profile-img">
+              <div class="profile-card-overlay"></div>
+              <div class="profile-tag-pill">
+                <span class="name">Samyak Pusate</span>
+                <span class="role">YCCE '28</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="content-section" id="about">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            About Me
+          </span>
+          <h2>Who I Am</h2>
+          <p>A glimpse into my background, interests, and creative dimensions.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="glass-card about-text">
+            <h3 style="font-size:22px; margin-bottom:16px; color:#fff;">Analytical Mindset with a Creative Touch</h3>
+            <p>
+              I am an engineering student at <strong>Yeshwantrao Chavan College of Engineering (YCCE), Nagpur</strong>, pursuing a B.Tech in Computer Technology alongside a Multidisciplinary Minor in <strong>Data Science</strong>.
+            </p>
+            <p>
+              My focus is on <strong>Data Analytics</strong>: uncovering trends, finding root causes, and creating dashboards that make business data easy for anyone to understand. I work primarily with <strong>Python, SQL, PostgreSQL, MySQL, and Power BI</strong>.
+            </p>
+            <p>
+              Outside engineering, I have a deep fascination with <strong>space science and astronomy</strong>. I enjoy reading literature, occasional creative writing, and playing the piano, where I create covers of songs and cinematic themes.
+            </p>
+          </div>
+
+          <!-- Quick Highlight Card -->
+          <div class="glass-card" style="display:flex; flex-direction:column; justify-content:center;">
+            <div style="margin-bottom:20px;">
+              <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-family:var(--font-mono);">Location</span>
+              <h4 style="font-size:18px; color:#fff; margin-top:2px;">Nagpur, Maharashtra, India</h4>
+            </div>
+            <div style="margin-bottom:20px;">
+              <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-family:var(--font-mono);">Current Status</span>
+              <h4 style="font-size:18px; color:#fff; margin-top:2px;">Open to Data Analyst Internships & Roles</h4>
+            </div>
+            <div>
+              <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-family:var(--font-mono);">Core Interests</span>
+              <h4 style="font-size:18px; color:#fff; margin-top:2px;">Data Analytics, Business Intelligence & Space Science</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION & ACADEMICS SECTION -->
+    <section class="content-section" id="education">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            Education & Academics
+          </span>
+          <h2>Academic Journey</h2>
+          <p>Degrees, certifications, academic standing, and campus leadership.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Timeline -->
+          <div class="education-timeline">
+            
+            <div class="edu-item">
+              <h4>B.Tech in Computer Technology</h4>
+              <p class="inst">Yeshwantrao Chavan College of Engineering (YCCE), Nagpur</p>
+              <span class="meta">2024 — 2028 · Current CGPA: 8.4</span>
+            </div>
+
+            <div class="edu-item">
+              <h4>Multidisciplinary Minor in Data Science</h4>
+              <p class="inst">YCCE Curriculum Specialization</p>
+              <span class="meta">Focused on Statistics, Exploratory Data Analysis, and Machine Learning</span>
+            </div>
+
+            <div class="edu-item">
+              <h4>Runner-Up — HackNexus Hackathon (2025)</h4>
+              <p class="inst">Smart Crime Analytics Platform</p>
+              <span class="meta">Built a spatial clustering & Random Forest prediction model for crime trends</span>
+            </div>
+
+          </div>
+
+          <!-- Leadership & Roles -->
+          <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <h3 style="font-size:20px; color:#fff; margin-bottom:14px;">Campus Leadership</h3>
+              <p style="font-size:14.5px; line-height:1.7; color:var(--text-secondary); margin-bottom:16px;">
+                I actively contribute to collegiate culture and student engagement through public speaking, event execution, and literary initiatives.
+              </p>
+              <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-primary);">
+                <li style="display:flex; align-items:center; gap:8px;">
+                  <span style="color:var(--accent-cyan);">✓</span>
+                  <strong>Literary Head</strong> — ISTE Student Chapter, YCCE
+                </li>
+                <li style="display:flex; align-items:center; gap:8px;">
+                  <span style="color:var(--accent-cyan);">✓</span>
+                  <strong>Event Organizer</strong> — Intercollegiate Technical Events & Fests
+                </li>
+                <li style="display:flex; align-items:center; gap:8px;">
+                  <span style="color:var(--accent-cyan);">✓</span>
+                  <strong>Public Speaker</strong> — Parliamentary Debates & Model United Nations (MUN)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section class="content-section" id="projects">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            Portfolio Projects
+          </span>
+          <h2>Featured Work</h2>
+          <p>Real-world projects applying SQL, Power BI, and Python to business challenges.</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- PROJECT 1 -->
+          <div class="glass-card project-card">
+            <div>
+              <div class="project-card-header">
+                <span class="project-type-tag">Power BI · HR Analytics</span>
+              </div>
+              <h3>HR Analytics Dashboard</h3>
+              <p class="project-desc">
+                An interactive Power BI dashboard tracking employee attrition across HR, R&D, and Sales. Identifies key factors behind employee turnover and helps HR leaders make data-backed retention decisions.
+              </p>
+
+              <div class="project-specs">
+                <div class="spec-item">
+                  <span class="spec-val">1,481</span>
+                  <span class="spec-key">Employees</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">38</span>
+                  <span class="spec-key">Attributes</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">DAX</span>
+                  <span class="spec-key">Measures & KPIs</span>
+                </div>
+              </div>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag">Power BI</span>
+                <span class="tech-tag">Power Query</span>
+                <span class="tech-tag">DAX</span>
+                <span class="tech-tag">Data Modeling</span>
+              </div>
+            </div>
+
+            <div>
+              <a href="https://github.com/Samyak1245/HR-Analytics-Dashboard-Power-BI" target="_blank" rel="noopener" class="btn btn-sm">
+                <span>View on GitHub</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- PROJECT 2 -->
+          <div class="glass-card project-card">
+            <div>
+              <div class="project-card-header">
+                <span class="project-type-tag">SQL + Power BI · Mobility</span>
+              </div>
+              <h3>Uber Ride Analytics — End-to-End</h3>
+              <p class="project-desc">
+                Conducted deep analysis on a 100,000-record Uber ride booking dataset. Identified booking trends, cancellation rates, revenue bottlenecks, and customer satisfaction ratings through an interactive dashboard.
+              </p>
+
+              <div class="project-specs">
+                <div class="spec-item">
+                  <span class="spec-val">100,000</span>
+                  <span class="spec-key">Ride Records</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">19</span>
+                  <span class="spec-key">Columns</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">20+</span>
+                  <span class="spec-key">SQL Queries</span>
+                </div>
+              </div>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">SQL Joins</span>
+                <span class="tech-tag">Power BI</span>
+                <span class="tech-tag">DAX</span>
+              </div>
+            </div>
+
+            <div>
+              <a href="https://github.com/Samyak1245/Uber" target="_blank" rel="noopener" class="btn btn-sm">
+                <span>View on GitHub</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- PROJECT 3 -->
+          <div class="glass-card project-card">
+            <div>
+              <div class="project-card-header">
+                <span class="project-type-tag">SQL · Media Analytics</span>
+              </div>
+              <h3>Netflix Content Trends Analysis</h3>
+              <p class="project-desc">
+                Explored global Netflix content to answer key business questions regarding movie vs. TV series volume, genre distributions, content ratings, and country-level catalog release patterns.
+              </p>
+
+              <div class="project-specs">
+                <div class="spec-item">
+                  <span class="spec-val">Window Funcs</span>
+                  <span class="spec-key">Ranking & Partitions</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">Subqueries</span>
+                  <span class="spec-key">Nested Analysis</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">Global</span>
+                  <span class="spec-key">Content Trends</span>
+                </div>
+              </div>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">pgAdmin 4</span>
+                <span class="tech-tag">Aggregation</span>
+                <span class="tech-tag">Data Cleaning</span>
+              </div>
+            </div>
+
+            <div>
+              <a href="https://github.com/Samyak1245/Netflix-SQL" target="_blank" rel="noopener" class="btn btn-sm">
+                <span>View on GitHub</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- PROJECT 4 -->
+          <div class="glass-card project-card">
+            <div>
+              <div class="project-card-header">
+                <span class="project-type-tag">Machine Learning · Hackathon Runner-Up</span>
+              </div>
+              <h3>Smart Crime Analytics Platform</h3>
+              <p class="project-desc">
+                Award-winning project at HackNexus 2025. Analyzed real-time crime records using EDA, clustering, and heatmaps, and trained a Random Forest model to forecast crime counts for proactive monitoring.
+              </p>
+
+              <div class="project-specs">
+                <div class="spec-item">
+                  <span class="spec-val">Runner-Up</span>
+                  <span class="spec-key">Award</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">Random Forest</span>
+                  <span class="spec-key">ML Algorithm</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-val">Heatmaps</span>
+                  <span class="spec-key">Hotspot Zones</span>
+                </div>
+              </div>
+
+              <div class="tech-tag-row">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Scikit-learn</span>
+                <span class="tech-tag">EDA</span>
+                <span class="tech-tag">Clustering</span>
+              </div>
+            </div>
+
+            <div>
+              <a href="#contact" class="btn btn-sm">
+                <span>Discuss Project</span>
+                <span>✉</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section class="content-section" id="skills">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            Technical Skills
+          </span>
+          <h2>Tools & Technologies</h2>
+          <p>Languages, data modeling tools, databases, and core strengths.</p>
+        </div>
+
+        <div class="skills-category-grid">
+          
+          <!-- Category 1 -->
+          <div class="glass-card skill-category-card">
+            <h3>💻 Programming</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">SQL</span>
+              <span class="skill-pill">C++</span>
+            </div>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="glass-card skill-category-card">
+            <h3>📊 Data Science & ML</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">Pandas</span>
+              <span class="skill-pill">NumPy</span>
+              <span class="skill-pill">Scikit-learn</span>
+              <span class="skill-pill">Matplotlib</span>
+              <span class="skill-pill">Seaborn</span>
+              <span class="skill-pill">EDA</span>
+            </div>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="glass-card skill-category-card">
+            <h3>📈 Visualization & BI</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">Power BI</span>
+              <span class="skill-pill">Power Query</span>
+              <span class="skill-pill">DAX</span>
+              <span class="skill-pill">Microsoft Excel</span>
+              <span class="skill-pill">Data Modeling</span>
+            </div>
+          </div>
+
+          <!-- Category 4 -->
+          <div class="glass-card skill-category-card">
+            <h3>🗄️ Databases</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">PostgreSQL</span>
+              <span class="skill-pill">MySQL</span>
+              <span class="skill-pill">pgAdmin 4</span>
+              <span class="skill-pill">Relational Schemas</span>
+            </div>
+          </div>
+
+          <!-- Category 5 -->
+          <div class="glass-card skill-category-card">
+            <h3>⚙️ Development Tools</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">VS Code</span>
+              <span class="skill-pill">Git & GitHub</span>
+              <span class="skill-pill">Anaconda</span>
+              <span class="skill-pill">Jupyter Notebook</span>
+              <span class="skill-pill">Windows</span>
+            </div>
+          </div>
+
+          <!-- Category 6 -->
+          <div class="glass-card skill-category-card">
+            <h3>🎯 Soft Skills</h3>
+            <div class="skill-pills-list">
+              <span class="skill-pill">Data Storytelling</span>
+              <span class="skill-pill">Leadership</span>
+              <span class="skill-pill">Public Speaking</span>
+              <span class="skill-pill">Problem Solving</span>
+              <span class="skill-pill">Team Collaboration</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MUSIC & PIANO SECTION -->
+    <section class="content-section" id="music">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            Beyond Academics
+          </span>
+          <h2>Music & Piano</h2>
+          <p>Where discipline meets melody — playing piano for over 8 years.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="music-wrapper">
+            
+            <div class="music-details">
+              <h3>Piano Covers on YouTube</h3>
+              <p>
+                When I step away from code and query consoles, I'm at the piano. I've been playing for over <strong>8 years</strong>, performing both classical melodies and contemporary songs. I share piano covers on my YouTube channel.
+              </p>
+              
+              <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <a href="https://www.youtube.com/@samyak_pusate" target="_blank" rel="noopener" class="btn btn-primary">
+                  <span>Watch on YouTube</span>
+                  <span>▶</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Playable Interactive Mini Piano -->
+            <div class="piano-console">
+              <div class="piano-top-bar">
+                <span>🎹 Interactive Mini Piano</span>
+                <span>Keyboard: [A] to [K]</span>
+              </div>
+
+              <div class="piano-keys">
+                <div class="piano-key" data-note="C4">
+                  <span class="note">C</span>
+                  <span class="key-press">A</span>
+                </div>
+                <div class="piano-key" data-note="D4">
+                  <span class="note">D</span>
+                  <span class="key-press">S</span>
+                </div>
+                <div class="piano-key" data-note="E4">
+                  <span class="note">E</span>
+                  <span class="key-press">D</span>
+                </div>
+                <div class="piano-key" data-note="F4">
+                  <span class="note">F</span>
+                  <span class="key-press">F</span>
+                </div>
+                <div class="piano-key" data-note="G4">
+                  <span class="note">G</span>
+                  <span class="key-press">G</span>
+                </div>
+                <div class="piano-key" data-note="A4">
+                  <span class="note">A</span>
+                  <span class="key-press">H</span>
+                </div>
+                <div class="piano-key" data-note="B4">
+                  <span class="note">B</span>
+                  <span class="key-press">J</span>
+                </div>
+                <div class="piano-key" data-note="C5">
+                  <span class="note">C⁺</span>
+                  <span class="key-press">K</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="content-section" id="contact">
+      <div class="container">
+        
+        <div class="section-heading">
+          <span class="section-tag">
+            <span class="dot"></span>
+            Let's Connect
+          </span>
+          <h2>Get in Touch</h2>
+          <p>Open for data analyst internships, project collaborations, and conversations.</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <div class="glass-card contact-info-block">
+            <div>
+              <h3 style="font-size:20px; color:#fff; margin-bottom:12px;">Contact Information</h3>
+              <p style="font-size:14.5px; line-height:1.6; color:var(--text-secondary); margin-bottom:24px;">
+                Feel free to email me directly or connect across developer platforms. I typically respond within 24 hours.
+              </p>
+
+              <div class="contact-item-row" id="copy-email-btn" style="cursor:pointer;" title="Click to copy email">
+                <div class="contact-icon">✉</div>
+                <div class="contact-text">
+                  <span class="label">Email Address (Click to Copy)</span>
+                  <span class="val">samyak.pusate.work@gmail.com</span>
+                </div>
+              </div>
+
+              <div class="contact-item-row">
+                <div class="contact-icon">📍</div>
+                <div class="contact-text">
+                  <span class="label">Location</span>
+                  <span class="val">Nagpur, Maharashtra, India</span>
+                </div>
+              </div>
+
+              <div class="contact-item-row">
+                <div class="contact-icon">📞</div>
+                <div class="contact-text">
+                  <span class="label">Phone</span>
+                  <span class="val">+91 9607434429</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div style="margin-top:20px;">
+              <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-family:var(--font-mono); display:block; margin-bottom:10px;">
+                Find Me On
+              </span>
+              <div class="social-links-row">
+                <a href="https://www.linkedin.com/in/samyakpusate12/" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                </a>
+                <a href="https://github.com/Samyak1245" target="_blank" rel="noopener" class="social-icon-btn" title="GitHub">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.57.1.79-.25.79-.55v-2.1c-3.2.7-3.87-1.4-3.87-1.4-.53-1.33-1.29-1.68-1.29-1.68-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.15v3.19c0 .3.21.66.8.55A10.51 10.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@samyak_pusate" target="_blank" rel="noopener" class="social-icon-btn" title="YouTube">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg>
+                </a>
+                <a href="https://leetcode.com/u/Samyak_Pusate/" target="_blank" rel="noopener" class="social-icon-btn" title="LeetCode" style="font-size:12px; font-weight:700;">LC</a>
+                <a href="https://www.hackerrank.com/profile/samyakpusate111" target="_blank" rel="noopener" class="social-icon-btn" title="HackerRank" style="font-size:12px; font-weight:700;">HR</a>
+                <a href="https://www.codechef.com/users/samyak_pusate" target="_blank" rel="noopener" class="social-icon-btn" title="CodeChef" style="font-size:12px; font-weight:700;">CC</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clean Message Form -->
+          <div class="glass-card">
+            <h3 style="font-size:20px; color:#fff; margin-bottom:18px;">Send a Message</h3>
+            
+            <form class="contact-form" id="contact-form">
+              <div class="form-group">
+                <label for="form-name">Your Name</label>
+                <input type="text" id="form-name" class="form-input" placeholder="e.g. John Doe" required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-email">Your Email</label>
+                <input type="email" id="form-email" class="form-input" placeholder="name@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="form-message">Message</label>
+                <textarea id="form-message" class="form-input" placeholder="Hi Samyak, I saw your portfolio and would like to discuss..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 6px;">
+                <span>Send Message</span>
+                <span>✉</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        © 2026 Samyak Pusate · Built with care
+      </div>
+      <div>
+        <a href="#home" style="color:var(--text-secondary); font-size:12px;">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notice -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
